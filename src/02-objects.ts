@@ -30,6 +30,6 @@ const poly: User = {
   age: 20,
 }
 
-poly.id = '123'
+// poly.id = '123'
 
 console.log(jacob, poly)
