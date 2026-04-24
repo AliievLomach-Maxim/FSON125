@@ -10,17 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
-=======
-=======
->>>>>>> Stashed changes
-    "clsx": "^2.1.1",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5"
->>>>>>> Stashed changes
+    "react-dom": "^19.2.4",
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
