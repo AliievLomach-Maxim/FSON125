@@ -1,0 +1,12 @@
+.basic {
+  min-width: 200px;
+  background-color: blue;
+  color: #fff;
+  border-radius: 12px;
+}
+.success {
+  background-color: green;
+}
+.error {
+  background-color: red;
+}
