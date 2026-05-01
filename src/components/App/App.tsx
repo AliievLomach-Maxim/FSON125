@@ -1,103 +1,108 @@
-// Hooks > use
-
-import { useState } from 'react'
-import ClickerButton from '../ClickerButton/ClickerButton'
-// import Accordion from '../Accordion/Accordion'
-// // state > new value > App()
-// const items = [
-//   { title: 'title 1', description: 'big qwerty' },
-//   { title: 'title 2', description: 'big qwerty' },
-//   { title: 'title 3', description: 'big qwerty' },
-//   { title: 'title 4', description: 'big qwerty' },
-//   { title: 'title 5', description: 'big qwerty' },
-//   { title: 'title 6', description: 'big qwerty' },
-// ]
+import { useLocalStorage } from 'usehooks-ts'
 
 const App = () => {
-  const [counters, setCounters] = useState({
-    counter1: 0,
-    counter2: 0,
-    counter3: 0,
-  })
-
-  // const handleClick1 = () => {
-  //   setCounters({ ...counters, counter1: counters.counter1 + 1 })
-  // }
-  // const handleClick2 = () => {
-  //   setCounters({ ...counters, counter2: counters.counter2 + 1 })
-  // }
-  // const handleClick3 = () => {
-  //   setCounters({ ...counters, counter3: counters.counter3 + 1 })
-  // }
-  const handleClick = (key: 'counter1' | 'counter2' | 'counter3') => {
-    setCounters({ ...counters, [key]: counters[key] + 1 })
-  }
-
-  const total = counters.counter1 + counters.counter2 + counters.counter3
+  const [counter, setCounter] = useLocalStorage('counter', 0)
 
   return (
     <div>
-      <ClickerButton onChangeCounter={() => handleClick('counter1')} value={counters.counter1} />
-      <ClickerButton onChangeCounter={() => handleClick('counter2')} value={counters.counter2} />
-      <ClickerButton onChangeCounter={() => handleClick('counter3')} value={counters.counter3} />
-      <hr />
-      <h1>{total}</h1>
-      {/* <button onClick={handleClick}>CLick me {counter}</button>
-      <button onClick={handleClick}>CLick me {counter}</button>
-      <button onClick={handleClick}>CLick me {counter}</button>
-      <button onClick={handleClick}>CLick me {counter}</button>
-      <button onClick={handleClick}>CLick me {counter}</button> */}
-      <hr />
-      {/* <Accordion items={items} /> */}
+      <button onClick={() => setCounter(counter + 1)}>{counter}</button>
     </div>
   )
 }
 
 export default App
 
-// const button = document.getElementById('button')
-// const handleClick = ()=>{}
-// button.addEveLi('click',handleClick)
-// button.addEveLi('click',()=>{})
-// const App = () => {
-//   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-//     console.log(event)
-//   }
-//   const handleClick2 = (value: number) => {
-//     console.log(value)
-//   }
+// import { useEffect, useState } from 'react'
 
-//   // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//   //   return e.target.value
-//   // }
+// const getInitialValue = () => {
+//   const localValue = localStorage.getItem('counter')
+//   if (localValue !== null) {
+//     return JSON.parse(localValue)
+//   } else {
+//     return 0
+//   }
+// }
+
+// const App = () => {
+//   // const [counter, setCounter] = useState(0)
+//   const [counter, setCounter] = useState(getInitialValue)
+
+//   useEffect(() => {
+//     localStorage.setItem('counter', JSON.stringify(counter))
+//   }, [counter])
+
 //   return (
 //     <div>
-//       {/* <button onClick={() => handleClick(10)}>click 5</button> */}
-//       <button onClick={handleClick}>click 5</button>
-//       <button
-//         onClick={(event) => {
-//           console.log(event)
-//           handleClick2(10)
-//           handleClick2(10)
-//           handleClick2(10)
-//           handleClick2(10)
-//           handleClick2(10)
-//           handleClick2(10)
-//           console.log(2 + 2)
-//         }}
-//       >
-//         click 5
-//       </button>
-//       <button onClick={handleClick}>click 5</button>
-//       <button onClick={() => handleClick2(10)}>click 5</button>
-//       {/* <input type='text' onChange={handleChange} /> */}
+//       <button onClick={() => setCounter(counter + 1)}>{counter}</button>
+//     </div>
+//   )
+// }
+
+// export default App
+// import { useState } from 'react'
+// import Sidebar from '../Sidebar/Sidebar'
+
+// const App = () => {
+//   const [isShowSidebar, setIsShowSidebar] = useState(false)
+
+//   const hideSideBar = () => {
+//     setIsShowSidebar(false)
+//   }
+
+//   return (
+//     <div>
+//       <button onClick={() => setIsShowSidebar(true)}>Show</button>
+//       {isShowSidebar && <Sidebar onClose={hideSideBar} />}
+//       <footer></footer>
 //     </div>
 //   )
 // }
 
 // export default App
 
-// // const button = document.getElementById('button')
-// // const handleClick = ()=>{}
-// // button.addEveLi('click',handleClick)
-// // button.addEveLi('click',()=>{})
+// import { useState } from 'react'
+// import Timer from '../Timer/Timer'
+
+// const App = () => {
+//   const [isShowTimer, setIsShowTimer] = useState(false)
+//   console.log('first')
+//   return (
+//     <div>
+//       <button onClick={() => setIsShowTimer(!isShowTimer)}>{isShowTimer ? 'Hide' : 'Show'}</button>
+//       {isShowTimer && <Timer />}
+//     </div>
+//   )
+// }
+
+// export default App
+// import axios from 'axios'
+// import { useEffect, useState } from 'react'
+
+// const App = () => {
+//   const [data, setData] = useState(null)
+//   const [counter, setCounter] = useState(0)
+//   const [counter2, setCounter2] = useState(0)
+
+//   useEffect(() => {
+//     // axios.get('https://swapi.info/api/people/1').then((res) => setData(res.data))
+//     const fetching = async () => {
+//       const res = await axios.get('https://swapi.info/api/people/1')
+//       console.log(res)
+//       setData(res.data)
+//     }
+//     fetching()
+//   }, [])
+
+//   // axios.get('https://swapi.info/api/people/1').then((res) => setData(res.data))
+
+//   return (
+//     <div>
+//       {JSON.stringify(data)}
+//       <hr />
+//       <button onClick={() => setCounter(counter + 1)}>click {counter}</button>
+//       <button onClick={() => setCounter2(counter2 + 1)}>click {counter2}</button>
+//     </div>
+//   )
+// }
+
+// export default App

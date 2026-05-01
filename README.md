@@ -1,23 +1,16 @@
-# Заняття 4 - Події та стан компонента
+# Заняття 6 - Побічні ефекти
 
-## Обробка подій
-
-- Іменування атрибутів обробників `on*`
-- Додавання обробника події
-- Посилання на функцію та анонімний колбек
-- Об'єкт події
-- Типізація об'єкта події
-
-## Стан компонента
-
-- Реактивність
-- [Стан компонента](https://raw.githubusercontent.com/goitacademy/react-v3-course-track/refs/heads/04-state/src/assets/state.png)
-- [Поняття **оновлення** та **рендера** компонента](https://raw.githubusercontent.com/goitacademy/react-v3-course-track/refs/heads/04-state/src/assets/component-update.png)
-- Хук `useState`
-- Обмеження хуків
-- Асинхронність оновлення стану
-- Локальність стану з `ClickCounter`
-- [Підняття стану](https://raw.githubusercontent.com/goitacademy/react-v3-course-track/refs/heads/04-state/src/assets/lifting-state.png)
-- Компоненти `Counter` та `CountDisplay`
-- Декілька станів (зробити ефект toggle з `setIsVisible(!isVisible)`)
-- Оновлення об'єктів
+- Етапи життєвого циклу компонента: монтування, оновлення, розмонтування
+- Побічні ефекти з `useEffect`
+  - https://swapi.info/api/people/1
+  - Запит при монтуванні компонента
+  - Залежності ефекта
+  - Синтаксис `async/await`
+  - Суворий режим і подвійне монтування (`Timer`)
+  - Очищення ефектів (`Timer`)
+  - Створюємо сайдбар (`Sidebar`)
+- Робота з LocalStorage
+  - Зберігаємо стан сайдбара (`Sidebar`)
+  - Запис через ефект
+  - Читання через `useState(callback)`
+  - https://usehooks-ts.com/
