@@ -1,106 +1,74 @@
-import { useLocalStorage } from 'usehooks-ts'
+import { useQuery } from '@tanstack/react-query'
+import { getArticles } from '../../services/articles'
+import { useState } from 'react'
 
 const App = () => {
-  const [counter, setCounter] = useLocalStorage('counter', 0)
+  const [searchValue, setSearchValue] = useState('')
+  const [page, setPage] = useState(0)
 
+  const submit = (formData: FormData) => {
+    const textFromInputSearch = formData.get('search') as string
+    setSearchValue(textFromInputSearch)
+    setPage(0)
+  }
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ['Articles', searchValue, page],
+    queryFn: () => getArticles({ page, searchValue }),
+    enabled: searchValue !== '',
+  })
+
+  // const handleChangePage = ({ selected }: { selected: number }) => {
+  //   setPage(selected)
+  // }
+  console.log('{data?.nbPages}', data?.nbPages)
   return (
     <div>
-      <button onClick={() => setCounter(counter + 1)}>{counter}</button>
+      <form action={submit}>
+        <input type='text' name='search' />
+        <button type='submit'>Search</button>
+      </form>
+      <hr />
+      <hr />
+      {isLoading && <h1>Loading...</h1>}
+      {isError && <h1>OOps some error...</h1>}
+      {data && data.hits.length > 0 && (
+        <ul>
+          {data.hits.map((article) => (
+            <li key={article.id}>
+              <a href={article.url}>{article.title}</a>
+            </li>
+          ))}
+        </ul>
+      )}
+      <hr />
     </div>
   )
 }
 
 export default App
 
-// import { useEffect, useState } from 'react'
-
-// const getInitialValue = () => {
-//   const localValue = localStorage.getItem('counter')
-//   if (localValue !== null) {
-//     return JSON.parse(localValue)
-//   } else {
-//     return 0
-//   }
-// }
-
-// const App = () => {
-//   // const [counter, setCounter] = useState(0)
-//   const [counter, setCounter] = useState(getInitialValue)
-
-//   useEffect(() => {
-//     localStorage.setItem('counter', JSON.stringify(counter))
-//   }, [counter])
-
-//   return (
-//     <div>
-//       <button onClick={() => setCounter(counter + 1)}>{counter}</button>
-//     </div>
-//   )
-// }
-
-// export default App
+// import { useQuery } from '@tanstack/react-query'
+// import { getSomePerson } from '../../services/api'
 // import { useState } from 'react'
-// import Sidebar from '../Sidebar/Sidebar'
 
 // const App = () => {
-//   const [isShowSidebar, setIsShowSidebar] = useState(false)
-
-//   const hideSideBar = () => {
-//     setIsShowSidebar(false)
-//   }
-
-//   return (
-//     <div>
-//       <button onClick={() => setIsShowSidebar(true)}>Show</button>
-//       {isShowSidebar && <Sidebar onClose={hideSideBar} />}
-//       <footer></footer>
-//     </div>
-//   )
-// }
-
-// export default App
-
-// import { useState } from 'react'
-// import Timer from '../Timer/Timer'
-
-// const App = () => {
-//   const [isShowTimer, setIsShowTimer] = useState(false)
-//   console.log('first')
-//   return (
-//     <div>
-//       <button onClick={() => setIsShowTimer(!isShowTimer)}>{isShowTimer ? 'Hide' : 'Show'}</button>
-//       {isShowTimer && <Timer />}
-//     </div>
-//   )
-// }
-
-// export default App
-// import axios from 'axios'
-// import { useEffect, useState } from 'react'
-
-// const App = () => {
-//   const [data, setData] = useState(null)
 //   const [counter, setCounter] = useState(0)
-//   const [counter2, setCounter2] = useState(0)
 
-//   useEffect(() => {
-//     // axios.get('https://swapi.info/api/people/1').then((res) => setData(res.data))
-//     const fetching = async () => {
-//       const res = await axios.get('https://swapi.info/api/people/1')
-//       console.log(res)
-//       setData(res.data)
-//     }
-//     fetching()
-//   }, [])
+//   const { data, isError, isLoading } = useQuery({
+//     queryKey: ['getPerson', 'getPerson2', counter],
+//     queryFn: () => getSomePerson(counter),
+//     enabled: counter >= 1,
+//   })
 
-//   // axios.get('https://swapi.info/api/people/1').then((res) => setData(res.data))
-
+//   // getSomePerson
 //   return (
 //     <div>
+//       <button onClick={() => setCounter(counter + 1)}>get person by ID: {counter}</button>
+//       <br />
+//       {isLoading && <p>loading...</p>}
+//       {isError && <p>oops...</p>}
 //       {JSON.stringify(data)}
-//       <hr />
-//       <button onClick={() => setCounter(counter + 1)}>click {counter}</button>
-//       <button onClick={() => setCounter2(counter2 + 1)}>click {counter2}</button>
 //     </div>
 //   )
 // }
