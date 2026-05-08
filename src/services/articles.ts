@@ -27,7 +27,8 @@ export const getArticles = async ({ page, searchValue }: ArticlesRequestParams) 
   const { data } = await axios.get<ArticlesResponse>('http://hn.algolia.com/api/v1/search', {
     params: {
       hitsPerPage: 10,
-      page,
+      // Тому що пагінація в АПІ починається з 0
+      page: page - 1,
       query: searchValue,
     },
   })
