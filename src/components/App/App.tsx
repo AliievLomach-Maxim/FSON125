@@ -2,6 +2,10 @@ import { useQuery } from '@tanstack/react-query'
 import { getArticles } from '../../services/articles'
 import { useState } from 'react'
 
+import './pagination.css'
+
+import ResponsivePagination from 'react-responsive-pagination'
+
 const App = () => {
   const [searchValue, setSearchValue] = useState('')
   const [page, setPage] = useState(0)
@@ -10,6 +14,10 @@ const App = () => {
     const textFromInputSearch = formData.get('search') as string
     setSearchValue(textFromInputSearch)
     setPage(0)
+  }
+
+  const handleChangePage = (newPageNumber: number) => {
+    setPage(newPageNumber)
   }
 
   const { data, isLoading, isError } = useQuery({
@@ -33,14 +41,23 @@ const App = () => {
       {isLoading && <h1>Loading...</h1>}
       {isError && <h1>OOps some error...</h1>}
       {data && data.hits.length > 0 && (
-        <ul>
-          {data.hits.map((article) => (
-            <li key={article.id}>
-              <a href={article.url}>{article.title}</a>
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul>
+            {data.hits.map((article) => (
+              <li key={article.id}>
+                <a href={article.url}>{article.title}</a>
+              </li>
+            ))}
+          </ul>
+          <ResponsivePagination
+            total={data.nbPages}
+            current={page}
+            onPageChange={handleChangePage}
+            // inactiveItemClassName='inactiveItem'
+          />
+        </>
       )}
+
       <hr />
     </div>
   )
