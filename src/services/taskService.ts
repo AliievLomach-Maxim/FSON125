@@ -3,8 +3,14 @@ import type { NewTaskBody, Task, UpdatedTask } from '../types/task'
 
 axios.defaults.baseURL = 'https://64689aefe99f0ba0a8286f54.mockapi.io'
 
-export const getTasks = async () => {
-  const res = await axios.get<Task[]>('/tasks?sortBy=createdAt&order=desc')
+export const getTasks = async (searchQuery: string) => {
+  const res = await axios.get<Task[]>('/tasks', {
+    params: {
+      search: searchQuery,
+      sortBy: 'createdAt',
+      order: 'desc',
+    },
+  })
   return res.data
 }
 
